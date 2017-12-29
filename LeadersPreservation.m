@@ -1,5 +1,10 @@
 %...LeadersPreservation....
 function elite_pop = LeadersPreservation(pop)
+elite_pop = LeadersPreservation_updated(pop);
+%elite_pop = LeadersPreservation_naive(pop);
+end
+
+function elite_pop = LeadersPreservation_updated(pop)
 global opt g_vars
 merged_pop = [g_vars.LeadersArchive;pop];
 c_id_index = opt.n_var + opt.n_cons + 2 + 2;
@@ -44,4 +49,13 @@ while(1)
     end
     level = level + 1;
 end
+end
+
+
+function elite_pop = LeadersPreservation_naive(pop)
+global opt g_vars
+merged_pop = [g_vars.LeadersArchive;pop];
+fit_array = merged_pop(:,opt.n_var + opt.n_cons + 1);
+[~,sorted_id] = sort(fit_array);
+elite_pop = merged_pop(sorted_id(1:opt.pop_size),:);
 end
