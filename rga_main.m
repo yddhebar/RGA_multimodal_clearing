@@ -23,7 +23,7 @@ for run = 1:opt.max_runs
     
     for gen = 1:opt.max_gen
         fprintf('gen = %d',gen);
-        LeadersSelection(parent_pop);
+        LeadersSelection(parent_pop,gen);
         n_leaders_gen(gen) = size(g_vars.LeadersArchive,1);
         parent_pop = ClusterAssignment(parent_pop);
         child_pop = LocalizedSelection(parent_pop);
@@ -59,11 +59,11 @@ fprintf('%d \t FEs %d \t %.2f \t %d \t %d\n',length(fe_success_rus),min(fe_succe
     median(fe_success_rus),max(fe_success_rus))
 fprintf('%d \t #peaks: %d \t %.2f \t %d \t %d\n',length(peak_ratio_failed_runs),min(peak_ratio_failed_runs),...
     mean(peak_ratio_failed_runs), median(peak_ratio_failed_runs), max(peak_ratio_failed_runs))
-all_gens = [1:opt.max_gen]';
+all_gens = [1:gen]';
 figure(2)
-plot(all_gens,n_leaders_gen,'+');
+plot(all_gens,n_leaders_gen(1:gen),'+');
 hold on
-plot(all_gens,n_optima_gen,'*');
+plot(all_gens,n_optima_gen(1:gen),'*');
 legend('n leaders','n optima');
 hold off
 

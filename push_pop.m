@@ -2,7 +2,6 @@
 function pushed_pop = push_pop(pop,sink,gen)
 pushed_pop = pop;
 pop_size = size(pop,1);
-eta_push = 0*gen;
 %adaptive eta...
 jumps = 6;
 if rem(gen,jumps) <= (jumps/2)
@@ -10,6 +9,8 @@ if rem(gen,jumps) <= (jumps/2)
 else
     eta_push = 40;
 end
+%eta_push = 0.01*gen;
+
 
 for i = 1:pop_size
     pushed_pop(i,:) = push_ind(pop(i,:),sink,eta_push);

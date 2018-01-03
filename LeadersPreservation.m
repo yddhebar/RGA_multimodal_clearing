@@ -55,7 +55,7 @@ end
 function elite_pop = LeadersPreservation_naive(pop)
 global opt g_vars
 merged_pop = [g_vars.LeadersArchive;pop];
-fit_array = merged_pop(:,opt.n_var + opt.n_cons + 1);
-[~,sorted_id] = sort(fit_array);
+fit_array = merged_pop(:,opt.n_var + opt.n_cons + 1:opt.n_var + opt.n_cons + 2);
+[sfa,sorted_id] = sortrows(fit_array,[2,1]);
 elite_pop = merged_pop(sorted_id(1:opt.pop_size),:);
 end

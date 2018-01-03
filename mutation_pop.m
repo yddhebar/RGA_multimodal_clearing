@@ -22,11 +22,11 @@ for j = 1:opt.n_var
         mut_pow = 1.0/(opt.eta_mut + 1);
         if rand_no <= 0.5
             xy = 1 - delta1;
-            val = 2*rand_no + (1 - 2*rand_no)*(xy^(1/mut_pow));
+            val = 2*rand_no + (1 - 2*rand_no)*(xy^(opt.eta_mut + 1));
             delta_q = val^(mut_pow) - 1;
         else
             xy = 1 - delta2;
-            val = 2*(1 - rand_no) + 2*(rand_no - 0.5)*(xy^(1/mut_pow));
+            val = 2*(1 - rand_no) + 2*(rand_no - 0.5)*(xy^(1 + opt.eta_mut));
             delta_q = 1 - (val^mut_pow);
         end
         

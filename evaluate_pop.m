@@ -45,6 +45,29 @@ function evald_ind = evaluate_ind(ind)
                 func_value = func_value + 10 + 9*cos(2*pi*k(i)*x(i));
             end
             evald_ind(end - 1) = func_value;
+        case 'CMMP_2_4_0'
+            func_value = x(1)^2 + x(2)^2;
+            g = zeros(1,2);
+            g(1) = (4*x(1)^2 + x(2)^2 - 4)/4;
+            g(2) = (x(1)^2 + 4*x(2)^2 - 4)/4;
+            
+            g_vio = g < 0;
+            total_cons_vio = -(sum(g(g_vio)));
+            evald_ind = [g,func_value,total_cons_vio];
+            
+        case 'CMMP_10_16_0'
+            func_value = dot(x,x);
+            g = zeros(1,4);
+            c = (1:10).^2;
+            for j = 1:4
+                cj = circshift(c,j-1);
+                g(j) = (dot(cj,x.^2) - 100)/100;
+            end
+            
+            g_vio = g < 0;
+            total_cons_vio = -(sum(g(g_vio)));
+            evald_ind = [g,func_value,total_cons_vio];
+            
         otherwise
             disp('Problem not specified or coded')
     end
